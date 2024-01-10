@@ -13,6 +13,5 @@ require "user.lualine"
 require "user.colorscheme"
 require "user.harpoon"
 
--- require "user.nvim-tree"
--- require "user.alpha"
--- require "user.treesitter"
+require "user.alpha"
+require "user.treesitter"

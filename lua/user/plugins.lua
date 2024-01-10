@@ -18,12 +18,12 @@ vim.opt.rtp:prepend(lazypath)
 -- vim: ts=2 sts=2 sw=2 et
 
 -- Autocommand that reloads neovim whenever you save the plugins.lua file
--- vim.cmd [[
---   augroup packer_user_config
---     autocmd!
---     autocmd BufWritePost plugins.lua source <afile> | PackerSync
---   augroup end
--- ]]
+vim.cmd [[
+  augroup user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | Lazy sync
+  augroup end
+]]
 
 -- Use a protected call so we don't error out on first use
 local status_ok, lazy = pcall(require, "lazy")
@@ -32,11 +32,9 @@ if not status_ok then
 end
 
 lazy.setup({
-    "wbthomason/packer.nvim" ,
     "nvim-lua/plenary.nvim",
     "windwp/nvim-autopairs",
     "numToStr/Comment.nvim",
-    "kyazdani42/nvim-tree.lua",
     "moll/vim-bbye",
     "nvim-lualine/lualine.nvim",
     "lewis6991/impatient.nvim",
@@ -59,4 +57,9 @@ lazy.setup({
     "nvim-treesitter/nvim-treesitter",
     "lewis6991/gitsigns.nvim",
     "jremmen/vim-ripgrep",
+    {
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+        dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" }
+    }
 }, {})

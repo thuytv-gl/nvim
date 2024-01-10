@@ -59,7 +59,6 @@ vim.cmd [[
     endif
   endfunction
 ]]
-vim.cmd("vsplit")
 
 vim.cmd [[
 function! GrepQuickFix(pat)
