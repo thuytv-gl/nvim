@@ -11,6 +11,7 @@ require "user.autopairs"
 require "user.comment"
 require "user.lualine"
 require "user.colorscheme"
+require "user.harpoon"
 
 -- require "user.nvim-tree"
 -- require "user.alpha"
