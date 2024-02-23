@@ -45,3 +45,11 @@ vim.opt.formatoptions:remove({ "c", "r", "o" }) -- This is a sequence of letters
 vim.opt.linebreak = true
 vim.opt.colorcolumn = "80"
 vim.opt.exrc = true
+
+-- Use Bash for shell commands in Neovim on Windows
+if vim.fn.has("win32") or vim.fn.has("win64") then
+  vim.o.shell = "bash"
+  vim.o.shellcmdflag = "-c"
+  vim.o.shellxquote = "("
+  vim.o.shellslash = false
+end
