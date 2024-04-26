@@ -26,8 +26,8 @@ vim.opt.expandtab = true                        -- convert tabs to spaces
 vim.opt.shiftwidth = 2                          -- the number of spaces inserted for each indentation
 vim.opt.tabstop = 2                             -- insert 2 spaces for a tab
 vim.opt.cursorline = true                       -- highlight the current line
-vim.opt.number = false                           -- set numbered lines
-vim.opt.relativenumber = true                           -- set numbered lines
+vim.opt.number = true                           -- set numbered lines
+vim.opt.relativenumber = false                           -- set numbered lines
 vim.opt.laststatus = 3                          -- only the last window will always have a status line
 vim.opt.showcmd = false                         -- hide (partial) command in the last line of the screen (for performance)
 vim.opt.ruler = false                           -- hide the line and column number of the cursor position
@@ -36,7 +36,7 @@ vim.opt.signcolumn = "yes"                      -- always show the sign column, 
 vim.opt.wrap = false                            -- display lines as one long line
 vim.opt.scrolloff = 8                           -- minimal number of screen lines to keep above and below the cursor
 vim.opt.sidescrolloff = 8                       -- minimal number of screen columns to keep to the left and right of the cursor if wrap is `false`
-vim.opt.guifont = "JetBrains Mono Nerd Font:h17"               -- the font used in graphical neovim applications
+vim.opt.guifont = "JetBrainsMono Nerd Font:h11"               -- the font used in graphical neovim applications
 vim.opt.fillchars.eob=" "                       -- show empty lines at the end of a buffer as ` ` {default `~`}
 vim.opt.shortmess:append "c"                    -- hide all the completion messages, e.g. "-- XXX completion (YYY)", "match 1 of 2", "The only match", "Pattern not found"
 vim.opt.whichwrap:append("<,>,[,],h,l")         -- keys allowed to move to the previous/next line when the beginning/end of line is reached
@@ -45,6 +45,13 @@ vim.opt.formatoptions:remove({ "c", "r", "o" }) -- This is a sequence of letters
 vim.opt.linebreak = true
 vim.opt.colorcolumn = "80"
 vim.opt.exrc = true
+
+if vim.g.neovide then
+  vim.g.neovide_remember_window_size = true
+  vim.g.neovide_cursor_animation_length = 0.05
+  vim.g.neovide_cursor_trail_size = 0.3
+  vim.g.neovide_cursor_antialiasing = true
+end
 
 -- Use Bash for shell commands in Neovim on Windows
 -- if vim.fn.has("win32") or vim.fn.has("win64") then

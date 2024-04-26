@@ -14,4 +14,4 @@ require "user.colorscheme"
 require "user.harpoon"
 
 require "user.alpha"
-require "user.treesitter"
+-- require "user.treesitter"

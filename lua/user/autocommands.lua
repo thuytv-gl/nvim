@@ -15,6 +15,15 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     vim.opt_local.spell = true
   end,
 })
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "rust" },
+  callback = function()
+    vim.keymap.set("n", "<M-r>", ":!cargo run<CR>")
+    vim.keymap.set("n", "<M-t>", ":!cargo test -- --ignored<CR>")
+  end,
+})
+
 -- Automatically close tab/vim when nvim-tree is the last window in the tab
 vim.cmd "autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif"
 
