@@ -17,14 +17,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 -- vim: ts=2 sts=2 sw=2 et
 
--- Autocommand that reloads neovim whenever you save the plugins.lua file
-vim.cmd [[
-  augroup user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | Lazy sync
-  augroup end
-]]
-
 -- Use a protected call so we don't error out on first use
 local status_ok, lazy = pcall(require, "lazy")
 if not status_ok then
@@ -57,9 +49,22 @@ lazy.setup({
     "nvim-treesitter/nvim-treesitter",
     "lewis6991/gitsigns.nvim",
     "jremmen/vim-ripgrep",
+    "treesitter-context",
+    -- {
+    --     "ThePrimeagen/harpoon",
+    --     branch = "harpoon2",
+    --     dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" }
+    -- },
     {
-        "ThePrimeagen/harpoon",
-        branch = "harpoon2",
-        dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" }
-    }
+      "NeogitOrg/neogit",
+      dependencies = {
+        "nvim-lua/plenary.nvim",         -- required
+        "sindrets/diffview.nvim",        -- optional - Diff integration
+
+        -- Only one of these is needed, not both.
+        "nvim-telescope/telescope.nvim", -- optional
+        "ibhagwan/fzf-lua",              -- optional
+      },
+      config = true
+    },
 }, {})
