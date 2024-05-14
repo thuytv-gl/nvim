@@ -15,6 +15,11 @@ vim.g.mapleader = " "
 --   term_mode = "t",
 --   command_mode = "c",
 
+-- Don't include leading whitespace
+keymap("o", "a'", "2i'", {})
+keymap("o", 'a"', '2i"', {})
+keymap("x", "a'", "2i'", {})
+keymap("x", 'a"', '2i"', {})
 
 -- Normal --
 -- Quick save
