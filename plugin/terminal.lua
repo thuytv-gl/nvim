@@ -11,8 +11,9 @@ vim.api.nvim_create_autocmd("TermOpen", {
 })
 
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
+vim.keymap.set("t", "<C-t>", "<c-\\><c-n>:q<cr>")
 
-vim.keymap.set("n", "<leader>st", function()
+vim.keymap.set("n", "<C-t>", function()
   vim.cmd.new()
   vim.cmd.wincmd("J")
   vim.api.nvim_win_set_height(0, 12)
