@@ -27,3 +27,9 @@ telescope.setup {
     },
   },
 }
+
+-- Telescope
+vim.keymap.set("n", "<leader>f", ":Telescope find_files<CR>", opts)
+vim.keymap.set("n", "<leader>ss", ":lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>", opts)
+vim.keymap.set("n", "<leader>st", ":Telescope live_grep<CR>", opts)
+vim.keymap.set("n", "<leader>sb", ":Telescope buffers<CR>", opts)

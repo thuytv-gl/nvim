@@ -1,9 +1,5 @@
-local status_ok, comment = pcall(require, "Comment")
-if not status_ok then
-  return
-end
-
-comment.setup {
+local comment = require('Comment');
+comment.setup({
   pre_hook = function(ctx)
     -- Only calculate commentstring for tsx filetypes
     if vim.bo.filetype == "typescriptreact" then
@@ -26,4 +22,7 @@ comment.setup {
       }
     end
   end,
-}
+})
+
+vim.keymap.set("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>")
+vim.keymap.set("x", "<leader>/", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>")

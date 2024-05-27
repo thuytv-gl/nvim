@@ -43,25 +43,9 @@ vim.api.nvim_create_autocmd({ "WinEnter" }, {
   end
 })
 
--- Automatically close tab/vim when nvim-tree is the last window in the tab
-vim.cmd "autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif"
-
--- vim.api.nvim_create_autocmd({ "VimResized" }, {
---   callback = function()
---     vim.cmd "tabdo wincmd ="
---   end,
--- })
-
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   callback = function()
     vim.highlight.on_yank { higroup = "Visual", timeout = 100 }
-  end,
-})
-
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-  pattern = { "*.java" },
-  callback = function()
-    vim.lsp.codelens.refresh()
   end,
 })
 
@@ -97,6 +81,27 @@ function! GrepQuickFix(pat)
     endif
   endfor
   call setqflist(all)
+endfunction
+]]
+
+vim.cmd [[
+function! Bdelete()
+    if &modified
+        echohl ErrorMsg
+        echomsg "No write since last change. Not closing buffer."
+        echohl NONE
+    else
+        let s:total_nr_buffers = len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
+
+        if s:total_nr_buffers == 1
+            bdelete
+            echo "Buffer deleted. Created new buffer."
+        else
+            bprevious
+            bdelete #
+            echo "Buffer deleted."
+        endif
+    endif
 endfunction
 ]]
 

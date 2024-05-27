@@ -1,17 +1,29 @@
-require "user.impatient"
-require "user.options"
-require "user.plugins"
-require "user.autocommands"
-require "user.lsp"
-require "user.keymaps"
-require "user.cmp"
-require "user.telescope"
-require "user.gitsigns"
-require "user.autopairs"
-require "user.comment"
-require "user.lualine"
-require "user.colorscheme"
-require "user.harpoon"
+--[[
+-- Setup initial configuration,
+-- 
+-- Primarily just download and execute lazy.nvim
+--]]
+vim.g.mapleader = " "
 
-require "user.alpha"
--- require "user.treesitter"
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+if not vim.uv.fs_stat(lazypath) then
+  vim.fn.system {
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  }
+end
+
+-- Add lazy to the `runtimepath`, this allows us to `require` it.
+---@diagnostic disable-next-line: undefined-field
+vim.opt.rtp:prepend(lazypath)
+
+-- Set up lazy, and load my `lua/custom/plugins/` folder
+require("lazy").setup({ import = "custom/plugins" }, {
+  change_detection = {
+    notify = false,
+  },
+})
