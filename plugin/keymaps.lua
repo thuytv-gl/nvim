@@ -26,9 +26,13 @@ keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
 -- Resize
-keymap("n", "<M-l>", ":vertical-resize -2<CR>", opts)
-keymap("n", "<M-h>", ":vertical-resize +2<CR>", opts)
+-- Resize
+keymap("n", "<M-]>", ":vertical-resize -20<CR>", opts)
+keymap("n", "<M-S-l>", ":vertical-resize 20<CR>", opts)
+keymap("n", "<M-S-k>", "<C-w>=", opts)
+keymap("n", "<M-[>", ":vertical-resize +20<CR>", opts)
 keymap("n", "<M-j>", ":resize +2<CR>", opts)
+keymap("n", "<M-k>", ":resize -2<CR>", opts)
 keymap("n", "<M-k>", ":resize -2<CR>", opts)
 
 -- Navigate buffers
@@ -40,6 +44,7 @@ keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
 
 -- Better paste
 keymap("v", "p", '"_dP', opts)
+keymap("n", "<leader>d", ":t.<CR>", opts)
 
 -- Insert --
 -- Fast quick exit
