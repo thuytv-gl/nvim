@@ -24,9 +24,11 @@ if not status_ok then
 end
 
 lazy.setup({
+    "wbthomason/packer.nvim" ,
     "nvim-lua/plenary.nvim",
     "windwp/nvim-autopairs",
     "numToStr/Comment.nvim",
+    "kyazdani42/nvim-tree.lua",
     "moll/vim-bbye",
     "nvim-lualine/lualine.nvim",
     "lewis6991/impatient.nvim",
@@ -49,22 +51,42 @@ lazy.setup({
     "nvim-treesitter/nvim-treesitter",
     "lewis6991/gitsigns.nvim",
     "jremmen/vim-ripgrep",
-    "treesitter-context",
-    -- {
-    --     "ThePrimeagen/harpoon",
-    --     branch = "harpoon2",
-    --     dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" }
-    -- },
+    "sindrets/diffview.nvim",
     {
-      "NeogitOrg/neogit",
-      dependencies = {
-        "nvim-lua/plenary.nvim",         -- required
-        "sindrets/diffview.nvim",        -- optional - Diff integration
-
-        -- Only one of these is needed, not both.
-        "nvim-telescope/telescope.nvim", -- optional
-        "ibhagwan/fzf-lua",              -- optional
-      },
-      config = true
+      "hedyhli/outline.nvim",
+      config = function()
+        require("outline").setup {
+          -- Your setup opts here (leave empty to use defaults)
+        }
+      end,
     },
-}, {})
+    {
+            "ThePrimeagen/harpoon",
+            branch = "harpoon2",
+            dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" }
+    },
+    {'akinsho/git-conflict.nvim', version = "*", config = true},
+    {
+      "stevearc/oil.nvim",
+      dependencies = { "nvim-tree/nvim-web-devicons" },
+      config = function()
+        require("oil").setup {
+          columns = { "icon" },
+          keymaps = {
+            ["<C-h>"] = false,
+            ["<M-h>"] = "actions.select_split",
+          },
+          view_options = {
+            show_hidden = true,
+          },
+          default_file_explorer  = false,
+        }
+
+        -- Open parent directory in current window
+        vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
+        -- Open parent directory in floating window
+        vim.keymap.set("n", "<space>-", require("oil").toggle_float)
+      end,
+    },
+  }, {})

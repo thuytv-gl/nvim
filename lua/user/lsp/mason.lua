@@ -3,12 +3,12 @@ local servers = {
 	"cssls",
 	"html",
 	"tsserver",
-	"pyright",
 	"bashls",
 	"jsonls",
 	"yamlls",
+  "clangd",
   "rust_analyzer",
-  "csharp_ls",
+  "eslint",
 }
 
 local settings = {

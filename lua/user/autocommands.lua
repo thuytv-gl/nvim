@@ -1,18 +1,3 @@
-local function exists(name)
-    if type(name)~="string" then return false end
-    return os.rename(name,name) and true or false
-end
-
-local function isFile(name)
-    if type(name)~="string" then return false end
-    if not exists(name) then return false end
-    local f = io.open(name)
-    if f then
-        f:close()
-        return true
-    end
-    return false
-end
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "qf", "help", "man", "lspinfo", "spectre_panel" },
   callback = function()
@@ -24,27 +9,27 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "gitcommit", "markdown" },
+  pattern = { "gitcommit" },
   callback = function()
     vim.opt_local.wrap = true
     vim.opt_local.spell = true
   end,
 })
 
-local prj_run_cmd_group = vim.api.nvim_create_augroup("ProjectRunCommand", { clear = true })
-vim.api.nvim_create_autocmd({ "WinEnter" }, {
-  group = prj_run_cmd_group,
+local rust_file_augroup = vim.api.nvim_create_augroup("MyGroup", {
+  clear = false
+})
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "rust" },
+  group = rust_file_augroup,
   callback = function()
-    local pwd = vim.fn.getcwd()
-    if isFile(pwd .. '/Cargo.toml') then
-      vim.keymap.set("n", "<M-r>", ":!cargo run<CR>")
-      vim.keymap.set("n", "<M-t>", ":!cargo test -- --ignored<CR>")
-    end
-  end
+    vim.keymap.set("n", "<M-r>", ":!cargo run<CR>")
+    vim.keymap.set("n", "<M-t>", ":!cargo test -- --ignored<CR>")
+  end,
 })
 
 -- Automatically close tab/vim when nvim-tree is the last window in the tab
-vim.cmd "autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif"
+-- vim.cmd "autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif"
 
 -- vim.api.nvim_create_autocmd({ "VimResized" }, {
 --   callback = function()
@@ -101,4 +86,7 @@ endfunction
 ]]
 
 vim.cmd[[command! -nargs=* Gqf call GrepQuickFix(<q-args>)]]
+vim.cmd("syntax off")
 
+vim.cmd[[command! Fold :set foldmethod=syntax]]
+vim.cmd[[command! Nfold :set foldmethod=manual]]
