@@ -7,6 +7,7 @@ local actions = require "telescope.actions"
 
 telescope.setup {
   defaults = {
+    layout_strategy = 'vertical',
 
     prompt_prefix = " ",
     selection_caret = " ",
@@ -25,11 +26,29 @@ telescope.setup {
         ['qq'] = actions.close
       }
     },
+    layout_config = {
+      preview_height = 0.7,
+      vertical = {
+        prompt_position = "bottom",
+        mirror = true,
+        height = 0.9,
+        preview_cutoff = 40,
+        width = 0.9
+      },
+    },
   },
 }
 
+pcall(require("telescope").load_extension, "fzf")
+pcall(require("telescope").load_extension, "fd")
+local builtin = require "telescope.builtin"
+
+local opts = { silent = true }
 -- Telescope
-vim.keymap.set("n", "<leader>f", ":Telescope find_files<CR>", opts)
+vim.keymap.set("n", "<leader>f", builtin.find_files, opts)
 vim.keymap.set("n", "<leader>ss", ":lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>", opts)
 vim.keymap.set("n", "<leader>st", ":Telescope live_grep<CR>", opts)
 vim.keymap.set("n", "<leader>sb", ":Telescope buffers<CR>", opts)
+vim.keymap.set("n", "<space>ft", builtin.git_files)
+vim.keymap.set("n", "<leader>sd", ":Telescope live_grep search_dirs=")
+vim.keymap.set("n", "<C-b>", ":Telescope buffers<CR>")
