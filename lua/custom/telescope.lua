@@ -41,10 +41,10 @@ telescope.setup {
 
 pcall(require("telescope").load_extension, "fzf")
 pcall(require("telescope").load_extension, "fd")
-local builtin = require "telescope.builtin"
 
 local opts = { silent = true }
--- Telescope
+local builtin = require "telescope.builtin"
+
 vim.keymap.set("n", "<leader>f", builtin.find_files, opts)
 vim.keymap.set("n", "<leader>ss", ":lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>", opts)
 vim.keymap.set("n", "<leader>st", ":Telescope live_grep<CR>", opts)
