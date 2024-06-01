@@ -22,14 +22,15 @@ local function run_cmd(cmdstr)
     vim.api.nvim_win_set_height(0, 120)
     vim.wo.winfixheight = true
     vim.api.nvim_command("terminal")
-    vim.api.nvim_feedkeys(cmdstr .. vim.api.nvim_replace_termcodes("\r", true, true, true), "t", false) -- Send the command and press Enter
+    local cr = vim.api.nvim_replace_termcodes("\r", true, true, true);
+    vim.api.nvim_feedkeys(cmdstr .. cr, "t", false) -- Send the command and press Enter
   end
 end
 
 local prj_run_cmd_group = vim.api.nvim_create_augroup("ProjectRunCommand", { clear = true })
 
 -- RUST
-vim.api.nvim_create_autocmd({ "WinEnter" }, {
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   group = prj_run_cmd_group,
   callback = function()
     local pwd = vim.fn.getcwd()
@@ -41,7 +42,7 @@ vim.api.nvim_create_autocmd({ "WinEnter" }, {
 })
 
 -- Clang
-vim.api.nvim_create_autocmd({ "WinEnter" }, {
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   group = prj_run_cmd_group,
   callback = function()
     local pwd = vim.fn.getcwd()
