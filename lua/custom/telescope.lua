@@ -27,13 +27,13 @@ telescope.setup {
       }
     },
     layout_config = {
-      preview_height = 0.7,
+      preview_height = 0.75,
       vertical = {
         prompt_position = "bottom",
         mirror = true,
-        height = 0.9,
+        height = 0.99,
         preview_cutoff = 40,
-        width = 0.9
+        width = 0.99
       },
     },
   },

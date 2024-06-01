@@ -10,7 +10,12 @@ return {
     }
 
     local syntax_on = {
+      c = true,
       rust = true,
+      javascript = true,
+      typescript = true,
+      typescriptreact = true,
+      bash = true,
     }
 
     vim.api.nvim_create_autocmd("FileType", {

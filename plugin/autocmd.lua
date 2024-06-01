@@ -1,18 +1,3 @@
-local function exists(name)
-    if type(name)~="string" then return false end
-    return os.rename(name,name) and true or false
-end
-
-local function isFile(name)
-    if type(name)~="string" then return false end
-    if not exists(name) then return false end
-    local f = io.open(name)
-    if f then
-        f:close()
-        return true
-    end
-    return false
-end
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "qf", "help", "man", "lspinfo", "spectre_panel" },
   callback = function()
@@ -29,18 +14,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     vim.opt_local.wrap = true
     vim.opt_local.spell = true
   end,
-})
-
-local prj_run_cmd_group = vim.api.nvim_create_augroup("ProjectRunCommand", { clear = true })
-vim.api.nvim_create_autocmd({ "WinEnter" }, {
-  group = prj_run_cmd_group,
-  callback = function()
-    local pwd = vim.fn.getcwd()
-    if isFile(pwd .. '/Cargo.toml') then
-      vim.keymap.set("n", "<M-r>", ":!cargo run<CR>")
-      vim.keymap.set("n", "<M-t>", ":!cargo test -- --ignored<CR>")
-    end
-  end
 })
 
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
