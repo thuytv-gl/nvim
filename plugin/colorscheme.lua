@@ -6,6 +6,6 @@ if not status_ok then
 end
 
 -- match the colors of buffer end with current color scheme
-pcall(vim.cmd.highlight,'EndOfBuffer guibg=', colorscheme)
-pcall(vim.cmd.highlight,'MatchParen', 'guibg=lightbrown guifg=red')
+-- pcall(vim.cmd.highlight,'EndOfBuffer guibg=', colorscheme)
+pcall(vim.cmd.highlight,'MatchParen', 'guibg=nil guifg=#ef4444')
 
