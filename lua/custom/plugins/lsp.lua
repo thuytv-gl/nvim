@@ -24,6 +24,7 @@ return {
         svelte = true,
         templ = true,
         cssls = true,
+        emmet_ls = true,
 
         -- Probably want to disable formatting for this lang server
         tsserver = true,
@@ -53,7 +54,7 @@ return {
           -- TODO: Could include cmd, but not sure those were all relevant flags.
           --    looks like something i would have added while i was floundering
           init_options = { clangdFileStatus = true },
-          filetypes = { "c" },
+          filetypes = { "c", "cpp" },
         },
       }
 

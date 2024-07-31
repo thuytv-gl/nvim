@@ -8,6 +8,16 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+  pattern = { "*.handlebars", "*.svelt"},
+  callback = function()
+    vim.cmd [[
+      set filetype=html
+      set syntax=html
+    ]]
+  end,
+})
+
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "gitcommit", "markdown" },
   callback = function()

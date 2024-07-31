@@ -15,7 +15,8 @@ return {
       sources = { "nvim_diagnostic" },
       sections = { "error", "warn" },
       symbols = { error = " ", warn = " " },
-      colored = false,
+      color = { bg = "#000000", fg="#FFFFFF" },
+      colored = true,
       always_visible = true,
     }
 
@@ -33,6 +34,7 @@ return {
 
     local filename = {
       "filename",
+      color = { bg = "#000000", fg="#FFFFFF" },
       path = 1,
     }
 

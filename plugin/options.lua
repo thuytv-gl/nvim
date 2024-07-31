@@ -1,5 +1,4 @@
-vim.g.modeline = false
-vim.g.editorconfig = true
+vim.g.modeline = false vim.g.editorconfig = true
 vim.opt.backup = false                          -- creates a backup file
 vim.opt.clipboard = "unnamedplus"               -- allows neovim to access the system clipboard
 -- vim.opt.cmdheight = 1                           -- more space in the neovim command line for displaying messages
@@ -54,9 +53,9 @@ if vim.g.neovide then
 end
 
 -- Use Bash for shell commands in Neovim on Windows
--- if vim.fn.has("win32") or vim.fn.has("win64") then
---   vim.o.shell = "bash"
---   vim.o.shellcmdflag = "-c"
---   vim.o.shellxquote = "("
---   vim.o.shellslash = false
--- end
+if vim.fn.has("win32") or vim.fn.has("win64") then
+  vim.o.shell = "cmd"
+  -- vim.o.shellcmdflag = "-c"
+  -- vim.o.shellxquote = "("
+  -- vim.o.shellslash = false
+end
