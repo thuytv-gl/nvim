@@ -90,3 +90,5 @@ endfunction
 
 vim.cmd[[command! -nargs=* Gqf call GrepQuickFix(<q-args>)]]
 
+-- cd to current buffer's directory
+vim.cmd[[command! Bdall :%bd|e#]]

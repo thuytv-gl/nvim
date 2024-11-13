@@ -27,3 +27,8 @@ require("lazy").setup({ import = "custom/plugins" }, {
     notify = false,
   },
 })
+
+if vim.g.neovide then
+  vim.opt.guifont = "JetBrainsMono Nerd Font:h10"
+  require("neovide")
+end
