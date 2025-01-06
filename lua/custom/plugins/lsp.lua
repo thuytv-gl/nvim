@@ -2,6 +2,8 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
+      "mfussenegger/nvim-jdtls",
+      "pmizio/typescript-tools.nvim",
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
@@ -19,15 +21,12 @@ return {
 
       local servers = {
         bashls = true,
+        emmet_ls = true,
         lua_ls = true,
         rust_analyzer = true,
         svelte = true,
         templ = true,
         cssls = true,
-        emmet_ls = true,
-
-        -- Probably want to disable formatting for this lang server
-        ts_ls = true,
 
         jsonls = {
           settings = {
@@ -54,7 +53,7 @@ return {
           -- TODO: Could include cmd, but not sure those were all relevant flags.
           --    looks like something i would have added while i was floundering
           init_options = { clangdFileStatus = true },
-          filetypes = { "c", "cpp" },
+          filetypes = { "c" },
         },
       }
 
@@ -102,6 +101,7 @@ return {
 
           keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
           keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+          keymap(bufnr, "n", "gv", "<cmd>vsplit<CR>lua vim.lsp.buf.definition()<CR>", opts)
           keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
           keymap(bufnr, "n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
           keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
@@ -123,7 +123,6 @@ return {
       })
 
       local signs = {
-
         { name = "DiagnosticSignError", text = "" },
         { name = "DiagnosticSignWarn", text = "" },
         { name = "DiagnosticSignHint", text = "" },
@@ -133,6 +132,7 @@ return {
       for _, sign in ipairs(signs) do
         vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
       end
+      require("custom.lsp-plugins").setup()
     end,
   },
 }

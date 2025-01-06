@@ -1,16 +1,16 @@
-vim.g.modeline = false
+vim.g.modeline = true
 vim.g.editorconfig = true
 vim.opt.backup = false                          -- creates a backup file
 vim.opt.clipboard = "unnamedplus"               -- allows neovim to access the system clipboard
 -- vim.opt.cmdheight = 1                           -- more space in the neovim command line for displaying messages
 vim.opt.completeopt = { "menuone", "noselect" } -- mostly just for cmp
 vim.opt.conceallevel = 0                        -- so that `` is visible in markdown files
--- vim.opt.fileencoding = "utf-8"                  -- the encoding written to a file
+vim.opt.fileencoding = "utf-8"                  -- the encoding written to a file
 vim.opt.hlsearch = true                         -- highlight all matches on previous search pattern
 -- vim.opt.ignorecase = true                       -- ignore case in search patterns
 vim.opt.mouse = "a"                             -- allow the mouse to be used in neovim
 -- vim.opt.pumheight = 10                          -- pop up menu height
-vim.opt.showmode = false                        -- we don't need to see things like -- INSERT -- anymore
+vim.opt.showmode = true                        -- we don't need to see things like -- INSERT -- anymore
 vim.opt.showtabline = 0                         -- always show tabs
 vim.opt.smartcase = true                        -- smart case
 vim.opt.smartindent = true                      -- make indenting smarter again
@@ -29,6 +29,7 @@ vim.opt.cursorline = true                       -- highlight the current line
 vim.opt.number = true                           -- set numbered lines
 vim.opt.relativenumber = false                           -- set numbered lines
 vim.opt.laststatus = 3                          -- only the last window will always have a status line
+vim.o.statusline = "[%{getcwd()}]:%f%m %y[%l:%c] Spaces: %{&tabstop}" -- Set the statusline
 vim.opt.showcmd = false                         -- hide (partial) command in the last line of the screen (for performance)
 vim.opt.ruler = false                           -- hide the line and column number of the cursor position
 vim.opt.numberwidth = 2                         -- minimal number of columns to use for the line number {default 4
@@ -44,19 +45,11 @@ vim.opt.whichwrap:append("<,>,[,],h,l")         -- keys allowed to move to the p
 vim.opt.formatoptions:remove({ "c", "r", "o" }) -- This is a sequence of letters which describes how automatic formatting is to be done
 vim.opt.linebreak = true
 vim.opt.colorcolumn = "80"
-vim.opt.exrc = true
+vim.o.shell = "cmd"
 
 if vim.g.neovide then
   vim.g.neovide_remember_window_size = true
   vim.g.neovide_cursor_animation_length = 0.05
   vim.g.neovide_cursor_trail_size = 0.3
   vim.g.neovide_cursor_antialiasing = true
-end
-
--- Use Bash for shell commands in Neovim on Windows
-if vim.fn.has("win32") or vim.fn.has("win64") then
-  vim.o.shell = "cmd"
-  -- vim.o.shellcmdflag = "-c"
-  -- vim.o.shellxquote = "("
-  -- vim.o.shellslash = false
 end

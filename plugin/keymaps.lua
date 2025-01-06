@@ -4,13 +4,13 @@ local keymap = vim.keymap.set
 local opts = { silent = true }
 
 --Remap space as leader key
-keymap("", "<Space>", "<Nop>", opts)
+-- keymap("", "<Space>", "<Nop>", opts)
 
 -- Normal --
--- Quick save
 keymap("n", "<leader>w", "<cmd>w<CR>", {})
-keymap("n", "<leader>c", "<cmd>call Bdelete()<CR>", opts)
 keymap("n", "<leader>q", "<cmd>q!<CR>", opts)
+keymap("n", "<leader>ca", "<cmd>%bd|e#<CR>", opts)
+
 keymap("n", "<C-q>", "<cmd>call QuickFixToggle()<CR>", opts)
 keymap("n", "<esc>", "<esc>", opts)
 keymap("n", "<leader>rr", "*cgn", opts)
@@ -45,6 +45,8 @@ keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
 -- Better paste
 keymap("v", "p", '"_dP', opts)
 keymap("n", "<leader>d", ":t.<CR>", opts)
+keymap("t", "<M-p>", '<C-w>"+')
+keymap("c", "<M-p>", '<C-r>+')
 
 -- Insert --
 -- Fast quick exit
@@ -56,4 +58,7 @@ keymap("i", "kj", "<ESC>", opts)
 keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
 
-keymap("n", "<leader>e", ":call NetrwToggle()<CR>", opts)
+-- keymap("n", "<leader>e", ":call NetrwToggle()<CR>", opts)
+keymap("n", "<leader>e", ":OilToggle<CR>", opts)
+
+keymap("n", "<C-g>", ":term gitui<CR>")

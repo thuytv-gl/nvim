@@ -1,6 +1,10 @@
+---@diagnostic disable: unused-local
 return {
   "nvim-lualine/lualine.nvim",
-  config = function()
+  dependencies = {
+    "arkav/lualine-lsp-progress",
+  },
+  _config = function()
     local status_ok, lualine = pcall(require, "lualine")
     if not status_ok then
       return
@@ -15,8 +19,7 @@ return {
       sources = { "nvim_diagnostic" },
       sections = { "error", "warn" },
       symbols = { error = " ", warn = " " },
-      color = { bg = "#000000", fg="#FFFFFF" },
-      colored = true,
+      colored = false,
       always_visible = true,
     }
 
@@ -34,8 +37,8 @@ return {
 
     local filename = {
       "filename",
-      color = { bg = "#000000", fg="#FFFFFF" },
       path = 1,
+      color = { fg = "#000000" },
     }
 
     local location = {
@@ -61,7 +64,7 @@ return {
         lualine_a = { "mode" },
         lualine_b = { "branch" },
         lualine_c = { diagnostics, filename },
-        lualine_x = { diff, spaces, "encoding", filetype },
+        lualine_x = { 'lsp_progress', spaces, "encoding", filetype },
         lualine_y = { location },
         lualine_z = { "progress" },
       },

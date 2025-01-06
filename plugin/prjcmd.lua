@@ -1,53 +1,30 @@
-local function exists(name)
-    if type(name)~="string" then return false end
-    return os.rename(name,name) and true or false
+-- save and restore current session
+vim.keymap.set("n", "<C-s><C-s>", "<cmd>mks! ~/.vim_runtime/session.nvim<CR>")
+vim.keymap.set("n", "<C-s><C-l>", "<cmd>source ~/.vim_runtime/session.nvim<CR>", { silent = true })
+
+-- Function to search and change directory with a root directory argument
+local function search_and_cd(root_dir)
+  local actions = require('telescope.actions')
+  local action_state = require('telescope.actions.state')
+  local pickers = require('telescope.pickers')
+  local finders = require('telescope.finders')
+  local conf = require('telescope.config').values
+
+  pickers.new({}, {
+    prompt_title = "Search and CD",
+    finder = finders.new_oneshot_job({'fd', '-td', '-d2', '', '--base-directory', root_dir}, {}),
+    sorter = conf.generic_sorter({}),
+    attach_mappings = function(prompt_bufnr, map)
+      actions.select_default:replace(function()
+        actions.close(prompt_bufnr)
+        local selection = action_state.get_selected_entry()
+        local dir = root_dir .. '/'.. selection[1]
+        vim.cmd('cd ' .. dir)
+        print('Changed directory to ' .. dir)
+      end)
+      return true
+    end,
+  }):find()
 end
 
-local function is_file(name)
-    if type(name)~="string" then return false end
-    if not exists(name) then return false end
-    local f = io.open(name)
-    if f then
-        f:close()
-        return true
-    end
-    return false
-end
-
--- @params cmdstr string
-local function run_cmd(cmdstr)
-  return function()
-    vim.cmd.new()
-    vim.cmd.wincmd("J")
-    vim.api.nvim_win_set_height(0, 120)
-    vim.wo.winfixheight = true
-    vim.api.nvim_command("terminal")
-    local cr = vim.api.nvim_replace_termcodes("\r", true, true, true);
-    vim.api.nvim_feedkeys(cmdstr .. cr, "t", false) -- Send the command and press Enter
-  end
-end
-
-local prj_run_cmd_group = vim.api.nvim_create_augroup("ProjectRunCommand", { clear = true })
-
--- RUST
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-  group = prj_run_cmd_group,
-  callback = function()
-    local pwd = vim.fn.getcwd()
-    if is_file(pwd .. '/Cargo.toml') then
-      vim.keymap.set("n", "<M-r>", run_cmd("cargo run"))
-      vim.keymap.set("n", "<M-t>", run_cmd("cargo test -- --ignored"))
-    end
-  end
-})
-
--- Clang
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-  group = prj_run_cmd_group,
-  callback = function()
-    local pwd = vim.fn.getcwd()
-    if is_file(pwd .. '/makefile') then
-      vim.keymap.set("n", "<M-r>", run_cmd("make"))
-    end
-  end
-})
+vim.keymap.set("n", "<M-S>", function() search_and_cd("c:/surecomp") end, { silent = true })

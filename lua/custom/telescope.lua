@@ -11,7 +11,7 @@ telescope.setup {
 
     prompt_prefix = " ",
     selection_caret = " ",
-    path_display = { "smart" },
+    path_display = { "filename_first" },
     file_ignore_patterns = { ".git/", "node_modules" },
 
     mappings = {
@@ -52,3 +52,29 @@ vim.keymap.set("n", "<leader>sb", ":Telescope buffers<CR>", opts)
 vim.keymap.set("n", "<space>ft", builtin.git_files)
 vim.keymap.set("n", "<leader>sd", ":Telescope live_grep search_dirs=")
 vim.keymap.set("n", "<C-b>", ":Telescope buffers<CR>")
+vim.keymap.set("n", "<leader>sg", function()
+  local pickers = require "telescope.pickers"
+  local finders = require "telescope.finders"
+  local conf = require("telescope.config").values
+	local command = "git diff --name-only"
+	local handle = io.popen(command)
+  if (handle == nil) then
+    return;
+  end
+  local result = handle:read("*a")
+  handle:close()
+
+  local files = {}
+  for token in string.gmatch(result, "[^%s]+") do
+    table.insert(files, token)
+  end
+
+  pickers.new(opts, {
+    prompt_title = "changed files",
+    finder = finders.new_table {
+      results = files
+    },
+    sorter = conf.generic_sorter(opts),
+  }):find()
+end, opts)
+

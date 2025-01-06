@@ -8,16 +8,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
-  pattern = { "*.handlebars", "*.svelt"},
-  callback = function()
-    vim.cmd [[
-      set filetype=html
-      set syntax=html
-    ]]
-  end,
-})
-
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "gitcommit", "markdown" },
   callback = function()
@@ -29,6 +19,13 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   callback = function()
     vim.highlight.on_yank { higroup = "Visual", timeout = 100 }
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "ExitPre" }, {
+  callback = function()
+    local shada_all = vim.api.nvim_exec("echo stdpath('state')", true) .. "/shada/main.shada.tmp.X"
+    os.remove(shada_all)
   end,
 })
 
@@ -45,6 +42,9 @@ vim.cmd [[
 -- cd to current buffer's directory
 vim.cmd[[command! Cd :cd %:p:h]]
 
+-- close all buffer
+vim.cmd[[command! Bclose :%bd|e#]]
+
 vim.cmd [[
   function! NetrwToggle()
     if &ft ==# "netrw"
@@ -54,6 +54,19 @@ vim.cmd [[
     endif
   endfunction
 ]]
+
+vim.api.nvim_create_user_command("OilToggle", function()
+  local current_buf = vim.api.nvim_get_current_buf()
+  local current_filetype = vim.api.nvim_buf_get_option(current_buf, "filetype")
+
+  if current_filetype == "oil" then
+    -- We use a command to go to the previous buffer
+    vim.cmd("b#")
+  else
+    -- Open oil if not already in an oil buffer
+    vim.cmd("Oil")
+  end
+end, { nargs = 0 })
 
 vim.cmd [[
 function! GrepQuickFix(pat)
@@ -67,28 +80,5 @@ function! GrepQuickFix(pat)
 endfunction
 ]]
 
-vim.cmd [[
-function! Bdelete()
-    if &modified
-        echohl ErrorMsg
-        echomsg "No write since last change. Not closing buffer."
-        echohl NONE
-    else
-        let s:total_nr_buffers = len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
-
-        if s:total_nr_buffers == 1
-            bdelete!
-            echo "Buffer deleted. Created new buffer."
-        else
-            bprevious
-            bdelete! #
-            echo "Buffer deleted."
-        endif
-    endif
-endfunction
-]]
-
 vim.cmd[[command! -nargs=* Gqf call GrepQuickFix(<q-args>)]]
 
--- cd to current buffer's directory
-vim.cmd[[command! Bdall :%bd|e#]]

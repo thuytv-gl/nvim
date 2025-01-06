@@ -3,7 +3,8 @@
 -- 
 -- Primarily just download and execute lazy.nvim
 --]]
-vim.g.mapleader = " "
+vim.g.mapleader = ","
+vim.loader.enable()
 
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then
@@ -27,8 +28,3 @@ require("lazy").setup({ import = "custom/plugins" }, {
     notify = false,
   },
 })
-
-if vim.g.neovide then
-  vim.opt.guifont = "JetBrainsMono Nerd Font:h10"
-  require("neovide")
-end

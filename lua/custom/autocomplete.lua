@@ -5,6 +5,7 @@ end
 
 local snip_status_ok, luasnip = pcall(require, "luasnip")
 if not snip_status_ok then
+  print("Failed to load luasnip")
 end
 
 require("luasnip/loaders/from_vscode").lazy_load()
