@@ -18,6 +18,8 @@ keymap("n", "<leader>rr", "*cgn", opts)
 -- Curror movements
 keymap("n", "gh", "<S-^>", opts)
 keymap("n", "gl", "$", opts)
+keymap("n", "<C-u>", "7k", opts)
+keymap("n", "<C-d>", "7j", opts)
 
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)

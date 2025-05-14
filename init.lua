@@ -27,4 +27,7 @@ require("lazy").setup({ import = "custom/plugins" }, {
   change_detection = {
     notify = false,
   },
+  git = {
+    timeout = 1200, -- kill processes that take more than 2 minutes
+  }
 })

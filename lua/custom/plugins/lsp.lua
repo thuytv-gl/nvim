@@ -20,6 +20,7 @@ return {
       local lspconfig = require "lspconfig"
 
       local servers = {
+        ruby_lsp = true,
         bashls = true,
         emmet_ls = true,
         lua_ls = true,
