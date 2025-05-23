@@ -3,11 +3,11 @@ if not status_ok then
   return
 end
 
-local actions = require "telescope.actions"
+local actions = require("telescope.actions")
 
-telescope.setup {
+telescope.setup({
   defaults = {
-    layout_strategy = 'vertical',
+    layout_strategy = "vertical",
 
     prompt_prefix = " ",
     selection_caret = " ",
@@ -22,28 +22,27 @@ telescope.setup {
         ["<C-k>"] = actions.move_selection_previous,
       },
       n = {
-        ['dd'] = actions.delete_buffer,
-        ['qq'] = actions.close
-      }
+        ["dd"] = actions.delete_buffer,
+        ["qq"] = actions.close,
+      },
     },
     layout_config = {
-      preview_height = 0.75,
       vertical = {
         prompt_position = "bottom",
         mirror = true,
         height = 0.99,
         preview_cutoff = 40,
-        width = 0.99
+        width = 0.99,
       },
     },
   },
-}
+})
 
 pcall(require("telescope").load_extension, "fzf")
 pcall(require("telescope").load_extension, "fd")
 
 local opts = { silent = true }
-local builtin = require "telescope.builtin"
+local builtin = require("telescope.builtin")
 
 vim.keymap.set("n", "<leader>f", builtin.find_files, opts)
 vim.keymap.set("n", "<leader>ss", ":lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>", opts)
@@ -53,13 +52,13 @@ vim.keymap.set("n", "<space>ft", builtin.git_files)
 vim.keymap.set("n", "<leader>sd", ":Telescope live_grep search_dirs=")
 vim.keymap.set("n", "<C-b>", ":Telescope buffers<CR>")
 vim.keymap.set("n", "<leader>sg", function()
-  local pickers = require "telescope.pickers"
-  local finders = require "telescope.finders"
+  local pickers = require("telescope.pickers")
+  local finders = require("telescope.finders")
   local conf = require("telescope.config").values
-	local command = "git diff --name-only"
-	local handle = io.popen(command)
-  if (handle == nil) then
-    return;
+  local command = "git diff --name-only"
+  local handle = io.popen(command)
+  if handle == nil then
+    return
   end
   local result = handle:read("*a")
   handle:close()
@@ -69,12 +68,13 @@ vim.keymap.set("n", "<leader>sg", function()
     table.insert(files, token)
   end
 
-  pickers.new(opts, {
-    prompt_title = "changed files",
-    finder = finders.new_table {
-      results = files
-    },
-    sorter = conf.generic_sorter(opts),
-  }):find()
+  pickers
+    .new(opts, {
+      prompt_title = "changed files",
+      finder = finders.new_table({
+        results = files,
+      }),
+      sorter = conf.generic_sorter(opts),
+    })
+    :find()
 end, opts)
-

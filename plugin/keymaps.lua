@@ -20,6 +20,8 @@ keymap("n", "gh", "<S-^>", opts)
 keymap("n", "gl", "$", opts)
 keymap("n", "<C-u>", "7k", opts)
 keymap("n", "<C-d>", "7j", opts)
+keymap("v", "<C-u>", "7k", opts)
+keymap("v", "<C-d>", "7j", opts)
 
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
@@ -48,7 +50,7 @@ keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
 keymap("v", "p", '"_dP', opts)
 keymap("n", "<leader>d", ":t.<CR>", opts)
 keymap("t", "<M-p>", '<C-w>"+')
-keymap("c", "<M-p>", '<C-r>+')
+keymap("c", "<M-p>", "<C-r>+")
 
 -- Insert --
 -- Fast quick exit
@@ -64,3 +66,18 @@ keymap("v", ">", ">gv", opts)
 keymap("n", "<leader>e", ":OilToggle<CR>", opts)
 
 keymap("n", "<C-g>", ":term gitui<CR>")
+
+keymap("n", "<leader>a", function()
+  local oil = require("oil")
+  local file_path = oil.get_current_dir() .. oil.get_cursor_entry().parsed_name
+  local sidebar = require("avante").get()
+
+  local open = sidebar:is_open()
+  -- ensure avante sidebar is open
+  if not open then
+    require("avante.api").ask()
+    sidebar = require("avante").get()
+  end
+
+  sidebar.file_selector:add_selected_file(file_path)
+end)

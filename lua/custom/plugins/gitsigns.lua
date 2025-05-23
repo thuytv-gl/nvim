@@ -8,22 +8,22 @@ return {
 
     vim.keymap.set("n", "<M-.>", ":Gitsigns blame_line<CR>", { silent = true })
 
-    gitsigns.setup {
+    gitsigns.setup({
       signs = {
-        add          = { text = '┃' },
-        change       = { text = '┃' },
-        delete       = { text = '_' },
-        topdelete    = { text = '‾' },
-        changedelete = { text = '~' },
-        untracked    = { text = '┆' },
+        add = { text = "┃" },
+        change = { text = "┃" },
+        delete = { text = "_" },
+        topdelete = { text = "‾" },
+        changedelete = { text = "~" },
+        untracked = { text = "┆" },
       },
       signs_staged = {
-        add          = { text = '┃' },
-        change       = { text = '┃' },
-        delete       = { text = '_' },
-        topdelete    = { text = '‾' },
-        changedelete = { text = '~' },
-        untracked    = { text = '┆' },
+        add = { text = "┃" },
+        change = { text = "┃" },
+        delete = { text = "_" },
+        topdelete = { text = "‾" },
+        changedelete = { text = "~" },
+        untracked = { text = "┆" },
       },
       current_line_blame = true,
       signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
@@ -48,6 +48,6 @@ return {
         row = 0,
         col = 1,
       },
-    }
-  end
+    })
+  end,
 }
