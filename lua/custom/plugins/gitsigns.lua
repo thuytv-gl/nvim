@@ -7,6 +7,7 @@ return {
     end
 
     vim.keymap.set("n", "<M-.>", ":Gitsigns blame_line<CR>", { silent = true })
+    vim.keymap.set("n", "<leader>bl", ":Gitsigns blame_line<CR>", { silent = true })
 
     gitsigns.setup({
       signs = {

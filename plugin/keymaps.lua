@@ -16,8 +16,6 @@ keymap("n", "<esc>", "<esc>", opts)
 keymap("n", "<leader>rr", "*cgn", opts)
 
 -- Curror movements
-keymap("n", "gh", "<S-^>", opts)
-keymap("n", "gl", "$", opts)
 keymap("n", "<C-u>", "7k", opts)
 keymap("n", "<C-d>", "7j", opts)
 keymap("v", "<C-u>", "7k", opts)

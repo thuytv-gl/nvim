@@ -2,6 +2,14 @@ return {
   "mfussenegger/nvim-lint",
   config = function()
     local lint = require("lint")
+    local phpcs = require('lint').linters.phpcs
+    phpcs.args = {
+      '-q',
+      -- <- Add a new parameter here
+      '--report=json',
+      '--standard=PSR12',
+      '-'
+    }
     lint.linters_by_ft = {
       php = { "phpcs" },
       javascript = { "biome" },

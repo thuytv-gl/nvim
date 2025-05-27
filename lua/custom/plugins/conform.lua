@@ -12,9 +12,12 @@ local M = {
       },
     })
 
-    vim.keymap.set("n", "<M-f>", function()
+    local format = function()
       conform.format()
-    end, { silent = true })
+    end
+
+    vim.keymap.set("n", "<M-f>", format, { silent = true })
+    vim.keymap.set({ "v", "n" }, "<leader><leader>f", format, { silent = true })
   end,
 }
 
