@@ -1,81 +1,67 @@
--- Shorten function name
-local keymap = vim.keymap.set
--- Silent keymap option
-local opts = { silent = true }
+-- [[ Basic Keymaps ]]
+--  See `:help vim.keymap.set()`
 
---Remap space as leader key
--- keymap("", "<Space>", "<Nop>", opts)
+-- Clear highlights on search when pressing <Esc> in normal mode
+--  See `:help hlsearch`
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
--- Normal --
-keymap("n", "<leader>w", "<cmd>w<CR>", {})
-keymap("n", "<leader>q", "<cmd>q!<CR>", opts)
-keymap("n", "<leader>ca", "<cmd>%bd|e#<CR>", opts)
+-- Diagnostic keymaps
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
-keymap("n", "<C-q>", "<cmd>call QuickFixToggle()<CR>", opts)
-keymap("n", "<esc>", "<esc>", opts)
-keymap("n", "<leader>rr", "*cgn", opts)
-
--- Curror movements
-keymap("n", "<C-u>", "7k", opts)
-keymap("n", "<C-d>", "7j", opts)
-keymap("v", "<C-u>", "7k", opts)
-keymap("v", "<C-d>", "7j", opts)
-
--- Better window navigation
-keymap("n", "<C-h>", "<C-w>h", opts)
-keymap("n", "<C-j>", "<C-w>j", opts)
-keymap("n", "<C-k>", "<C-w>k", opts)
-keymap("n", "<C-l>", "<C-w>l", opts)
-
--- Resize
--- Resize
-keymap("n", "<M-]>", ":vertical-resize -20<CR>", opts)
-keymap("n", "<M-S-l>", ":vertical-resize 20<CR>", opts)
-keymap("n", "<M-S-k>", "<C-w>=", opts)
-keymap("n", "<M-[>", ":vertical-resize +20<CR>", opts)
-keymap("n", "<M-j>", ":resize +2<CR>", opts)
-keymap("n", "<M-k>", ":resize -2<CR>", opts)
-keymap("n", "<M-k>", ":resize -2<CR>", opts)
-
--- Navigate buffers
-keymap("n", "<S-l>", ":bnext<CR>", opts)
-keymap("n", "<S-h>", ":bprevious<CR>", opts)
-
--- Clear highlights
-keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
+--  See `:help wincmd` for a list of all window commands
+vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- Better paste
-keymap("v", "p", '"_dP', opts)
-keymap("n", "<leader>d", ":t.<CR>", opts)
-keymap("t", "<M-p>", '<C-w>"+')
-keymap("c", "<M-p>", "<C-r>+")
-
--- Insert --
--- Fast quick exit
-keymap("i", "jk", "<ESC>", opts)
-keymap("i", "kj", "<ESC>", opts)
+vim.keymap.set('v', 'p', '"_dP', { silent = true })
 
 -- Visual --
 -- Stay in indent mode
-keymap("v", "<", "<gv", opts)
-keymap("v", ">", ">gv", opts)
+vim.keymap.set('v', '<', '<gv', { silent = true })
+vim.keymap.set('v', '>', '>gv', { silent = true })
 
--- keymap("n", "<leader>e", ":call NetrwToggle()<CR>", opts)
-keymap("n", "<leader>e", ":OilToggle<CR>", opts)
+vim.keymap.set('n', '<C-q>', function()
+  vim.cmd [[
+    if empty(filter(getwininfo(), 'v:val.quickfix'))
+      copen
+    else
+      cclose
+    endif
+  ]]
+end, { desc = 'Move focus to the upper window' })
 
-keymap("n", "<C-g>", ":term gitui<CR>")
+-- quick exit insert mode
+vim.keymap.set('i', 'jk', '<ESC>', { silent = true })
+vim.keymap.set('i', 'kj', '<ESC>', { silent = true })
 
-keymap("n", "<leader>a", function()
-  local oil = require("oil")
-  local file_path = oil.get_current_dir() .. oil.get_cursor_entry().parsed_name
-  local sidebar = require("avante").get()
+-- save and load session
+vim.keymap.set('n', '<C-s><C-s>', '<cmd>mks! ~/session.nvim<CR>')
+vim.keymap.set('n', '<C-s><C-l>', '<cmd>source ~/session.nvim<CR>', { silent = true })
 
-  local open = sidebar:is_open()
-  -- ensure avante sidebar is open
-  if not open then
-    require("avante.api").ask()
-    sidebar = require("avante").get()
-  end
+-- manage terminal
+vim.keymap.set('t', '<esc><esc>', '<c-\\><c-n>')
+vim.keymap.set('t', '<C-t>', '<c-\\><c-n>:bdelete!<cr>')
 
-  sidebar.file_selector:add_selected_file(file_path)
+vim.keymap.set('n', '<C-t>', function()
+  vim.cmd.new()
+  vim.cmd.wincmd 'J'
+  vim.api.nvim_win_set_height(0, 120)
+  vim.wo.winfixheight = true
+  vim.cmd.term()
+  vim.opt_local.number = false
+  vim.opt_local.relativenumber = false
+  vim.opt_local.scrolloff = 0
+  vim.cmd 'startinsert'
 end)
+
+-- buffline
+vim.keymap.set('n', '<S-l>', ':BufferLineCycleNext<CR>', { silent = true })
+vim.keymap.set('n', '<S-h>', ':BufferLineCyclePrev<CR>', { silent = true })
+
+-- save and quit
+vim.keymap.set('n', '<leader>w', '<cmd>w<CR>')
+vim.keymap.set('n', '<leader>q', '<cmd>q!<CR>')
+vim.keymap.set('n', '<leader>ca', '<cmd>%bd|e#|bd#<CR>', { silent = true, desc = "Close others" })
+vim.keymap.set('n', '<leader>c', '<cmd>bp | sp | bn | bd!<CR>')
