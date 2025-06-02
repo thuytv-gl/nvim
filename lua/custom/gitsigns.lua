@@ -34,9 +34,9 @@ return {
           end
         end, { desc = 'Jump to previous git [c]hange' })
 
-        map('n', '<C-,>', gitsigns.preview_hunk, { desc = 'git [p]review hunk' })
-        map('n', '<C-.>', gitsigns.blame_line, { desc = 'git [b]lame line' })
-        map('n', '<C-[', function()
+        map('n', '<leader>p', gitsigns.preview_hunk, { desc = 'git [p]review hunk' })
+        map('n', '<leader>l', gitsigns.blame_line, { desc = 'git [b]lame line' })
+        map('n', '[[', function()
           gitsigns.diffthis '@'
         end, { desc = 'git [D]iff against last commit' })
       end,

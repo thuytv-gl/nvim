@@ -77,12 +77,15 @@ local LSP = {
         --  Most Language Servers support renaming across files, etc.
         map("grn", vim.lsp.buf.rename, "[R]e[n]ame")
 
-        map("gra", vim.lsp.buf.code_action, "[G]oto Code [A]ction", { "n", "x" })
+        map("glq", vim.diagnostic.setloclist, "[G]oto [L]ist [Q]ickfix")
+        map("gla", vim.lsp.buf.code_action, "[G]oto [L]ist [A]ction", { "n", "x" })
+        map("grq", require("telescope.builtin").lsp_type_definitions, "[G]oto [T]ype Definition")
         map("gL", vim.diagnostic.open_float, "[G]oto Code [A]ction", { "n", "x" })
         map("grr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
         map("gri", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
         map("grd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
         map("gd", vim.lsp.buf.definition, "[G]oto [D]eclaration")
+        map("gD", vim.lsp.buf.definition, "[G]oto [D]eclaration")
         map("gO", require("telescope.builtin").lsp_document_symbols, "Open Document Symbols")
         map("gW", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Open Workspace Symbols")
         map("grt", require("telescope.builtin").lsp_type_definitions, "[G]oto [T]ype Definition")
@@ -189,77 +192,14 @@ local LSP = {
     --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
     --
     local intelephense_stubs = {
-      "apache",
-      "bcmath",
-      "bz2",
-      "calendar",
-      "com_dotnet",
-      "Core",
-      "ctype",
-      "curl",
-      "date",
-      "dba",
-      "dom",
-      "enchant",
-      "exif",
-      "FFI",
-      "fileinfo",
-      "filter",
-      "fpm",
-      "ftp",
-      "gd",
-      "gettext",
-      "gmp",
-      "hash",
-      "iconv",
-      "imap",
-      "intl",
-      "json",
-      "ldap",
-      "libxml",
-      "mbstring",
-      "meta",
-      "mysqli",
-      "oci8",
-      "odbc",
-      "openssl",
-      "pcntl",
-      "pcre",
-      "PDO",
-      "pdo_ibm",
-      "pdo_mysql",
-      "pdo_pgsql",
-      "pdo_sqlite",
-      "pgsql",
-      "Phar",
-      "posix",
-      "pspell",
-      "readline",
-      "Reflection",
-      "session",
-      "shmop",
-      "SimpleXML",
-      "snmp",
-      "soap",
-      "sockets",
-      "sodium",
-      "SPL",
-      "sqlite3",
-      "standard",
-      "superglobals",
-      "sysvmsg",
-      "sysvsem",
-      "sysvshm",
-      "tidy",
-      "tokenizer",
-      "xml",
-      "xmlreader",
-      "xmlrpc",
-      "xmlwriter",
-      "xsl",
-      "Zend OPcache",
-      "zip",
-      "zlib",
+      "apache", "bcmath", "bz2", "calendar", "com_dotnet", "Core",
+      "ctype", "curl", "date", "dba", "dom", "enchant", "exif", "FFI", "fileinfo", "filter",
+      "fpm", "ftp", "gd", "gettext", "gmp", "hash", "iconv", "imap", "intl", "json", "ldap",
+      "libxml", "mbstring", "meta", "mysqli", "oci8", "odbc", "openssl", "pcntl", "pcre", "PDO",
+      "pdo_ibm", "pdo_mysql", "pdo_pgsql", "pdo_sqlite", "pgsql", "Phar", "posix", "pspell",
+      "readline", "Reflection", "session", "shmop", "SimpleXML", "snmp", "soap", "sockets", "sodium",
+      "SPL", "sqlite3", "standard", "superglobals", "sysvmsg", "sysvsem", "sysvshm", "tidy",
+      "tokenizer", "xml", "xmlreader", "xmlrpc", "xmlwriter", "xsl", "Zend OPcache", "zip", "zlib",
     }
 
     table.insert(intelephense_stubs, "wordpress")
