@@ -23,6 +23,9 @@ vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 vim.o.smartcase = true
 vim.o.smartindent = true
+vim.o.expandtab = true
+vim.o.shiftwidth = 2
+vim.o.tabstop = 2
 vim.o.termguicolors = true
 vim.o.linebreak = false
 vim.o.colorcolumn = "80"
@@ -97,11 +100,24 @@ rtp:prepend(lazypath)
 
 -- NOTE: Here is where you install your plugins.
 require("lazy").setup({
+  "MeanderingProgrammer/render-markdown.nvim",
   "NMAC427/guess-indent.nvim", -- Detect tabstop and shiftwidth automatically
   { -- https://github.com/windwp/nvim-autopairs
     "windwp/nvim-autopairs",
     event = "InsertEnter",
     opts = {},
+  },
+  {
+    "folke/snacks.nvim",
+    ---@modules 'snacks'
+    ---@type snacks.Config
+    opts = {
+      input = {
+        relative = "cursor",
+        row = -3,
+        col = 0,
+      },
+    },
   },
   { -- Highlight todo, notes, etc in comments
     "folke/todo-comments.nvim",
