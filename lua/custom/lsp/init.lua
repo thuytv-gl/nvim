@@ -47,11 +47,6 @@ local LSP = {
     { "mason-org/mason.nvim", opts = {} },
     "mason-org/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
-    {
-      "pmizio/typescript-tools.nvim",
-      dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-      opts = {},
-    },
 
     -- Useful status updates for LSP.
     { "j-hui/fidget.nvim", opts = {} },
