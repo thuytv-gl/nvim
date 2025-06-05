@@ -19,6 +19,39 @@
 =====================================================================
 --]]
 
+LSP_SERVERS = {
+  intelephense = require("custom/lsp/php"),
+  ts_ls = {},
+  csharp_ls = {},
+  emmet_language_server = {},
+
+  lua_ls = {
+    settings = {
+      Lua = {
+        completion = {
+          callSnippet = "Replace",
+        },
+      },
+    },
+  },
+}
+
+LSP_LINTERS = {
+  markdown = { "markdownlint" },
+  php = { "phpcs" },
+}
+
+LSP_FORMATTERS = {
+  lua = { "stylua" },
+  php = { "phpcbf" },
+  javascript = { "prettier", "eslint_d" },
+  typescript = { "prettier", "eslint_d" },
+  scss = { "prettier" },
+  css = { "prettier" },
+  markdown = { "markdownlint" },
+  csharp = { "csharpier" },
+}
+
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 vim.o.smartcase = true
@@ -149,7 +182,6 @@ require("lazy").setup({
   require("custom/autocompletion"),
   require("custom/debug"),
   require("custom/gitsigns"),
-  require("custom/lint"),
   require("custom/lsp"),
   require("custom/oil"),
   require("custom/telescope"),
