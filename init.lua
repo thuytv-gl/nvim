@@ -26,6 +26,7 @@ local linters = {
 
 local lsp_servers = {
   intelephense = require("custom.lsp.php"),
+  pylsp = {},
   eslint_d = {},
   ts_ls = {},
   csharp_ls = {},
@@ -50,6 +51,7 @@ local formatters = {
   css = { "prettier" },
   markdown = { "markdownlint" },
   csharp = { "csharpier" },
+  python = { "pylint" },
 }
 
 vim.g.mapleader = ","
