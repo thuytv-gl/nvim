@@ -12,5 +12,21 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
--- cd to current buffer's directory
-vim.cmd([[command! Cd :cd %:p:h]])
+
+vim.api.nvim_create_autocmd("WinLeave", {
+  desc = "Hide number column when leaving",
+  group = vim.api.nvim_create_augroup("kickstart-numbar-hide-on-leave", { clear = true }),
+  callback = function()
+    vim.cmd("setlocal nu!")
+  end,
+})
+
+vim.api.nvim_create_autocmd("WinEnter", {
+  desc = "Hide number column when leaving",
+  group = vim.api.nvim_create_augroup("kickstart-numbar-show-on-enter", { clear = true }),
+  callback = function()
+    vim.cmd("setlocal nu")
+  end,
+})
+
+vim.api.nvim_create_user_command("Cd", ":cd %:p:h", {})

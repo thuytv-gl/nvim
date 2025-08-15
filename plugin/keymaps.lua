@@ -67,4 +67,4 @@ vim.keymap.set('n', '<leader>ca', '<cmd>%bd|e#|bd#<CR>', { silent = true, desc =
 vim.keymap.set('n', '<leader>c', '<cmd>bp | sp | bn | bd!<CR>')
 
 -- random background
-vim.keymap.set('n', '<leader>rc', ':CColor ')
+vim.keymap.set('n', '<leader>rc', ':WinbarRandomColor<cr>')
