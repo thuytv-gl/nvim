@@ -17,6 +17,8 @@ return { -- Highlight, edit, and navigate code
       'vim',
       'vimdoc',
       'php',
+      'javascript',
+      'typescript'
     },
     -- Autoinstall languages that are not installed
     auto_install = true,

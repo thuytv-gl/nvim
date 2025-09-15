@@ -40,22 +40,6 @@ vim.keymap.set('i', 'kj', '<ESC>', { silent = true })
 vim.keymap.set('n', '<C-s><C-s>', '<cmd>mks! ~/session.nvim<CR>')
 vim.keymap.set('n', '<C-s><C-l>', '<cmd>source ~/session.nvim<CR>', { silent = true })
 
--- manage terminal
-vim.keymap.set('t', '<esc><esc>', '<c-\\><c-n>')
-vim.keymap.set('t', '<C-t>', '<c-\\><c-n>:bdelete!<cr>')
-
-vim.keymap.set('n', '<C-t>', function()
-  vim.cmd.new()
-  vim.cmd.wincmd 'J'
-  vim.api.nvim_win_set_height(0, 120)
-  vim.wo.winfixheight = true
-  vim.cmd.term()
-  vim.opt_local.number = false
-  vim.opt_local.relativenumber = false
-  vim.opt_local.scrolloff = 0
-  vim.cmd 'startinsert'
-end)
-
 -- buffline
 vim.keymap.set('n', '<S-l>', ':BufferLineCycleNext<CR>', { silent = true })
 vim.keymap.set('n', '<S-h>', ':BufferLineCyclePrev<CR>', { silent = true })
@@ -65,6 +49,3 @@ vim.keymap.set('n', '<leader>w', '<cmd>w<CR>')
 vim.keymap.set('n', '<leader>q', '<cmd>q!<CR>')
 vim.keymap.set('n', '<leader>ca', '<cmd>%bd|e#|bd#<CR>', { silent = true, desc = "Close others" })
 vim.keymap.set('n', '<leader>c', '<cmd>bp | sp | bn | bd!<CR>')
-
--- random background
-vim.keymap.set('n', '<leader>rc', ':WinbarRandomColor<cr>')

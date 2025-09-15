@@ -74,7 +74,6 @@ rtp:prepend(lazypath)
 
 -- NOTE: Here is where you install your plugins.
 require("lazy").setup({
-  "MeanderingProgrammer/render-markdown.nvim",
   "NMAC427/guess-indent.nvim", -- Detect tabstop and shiftwidth automatically
   { -- https://github.com/windwp/nvim-autopairs
     "windwp/nvim-autopairs",
