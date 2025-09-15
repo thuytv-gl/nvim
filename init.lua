@@ -130,6 +130,7 @@ require("lazy").setup({
   require("custom.telescope"),
   require("custom.treesitter"),
   require("custom.whichkey"),
+  require("custom.parrot"),
 }, {
   ui = {
     icons = vim.g.have_nerd_font and {} or {
