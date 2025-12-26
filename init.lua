@@ -20,7 +20,7 @@
 --]]
 
 local linters = {
-  markdown = { "markdownlint" },
+  -- markdown = { "markdownlint" },
   php = { "phpcs", "php" },
 }
 
@@ -49,7 +49,7 @@ local formatters = {
   typescript = { "prettier" },
   scss = { "prettier" },
   css = { "prettier" },
-  markdown = { "markdownlint" },
+  -- markdown = { "markdownlint" },
   csharp = { "csharpier" },
   python = { "pylint" },
 }
@@ -130,7 +130,7 @@ require("lazy").setup({
   require("custom.telescope"),
   require("custom.treesitter"),
   require("custom.whichkey"),
-  require("custom.parrot"),
+ -- require("custom.parrot"),
 }, {
   ui = {
     icons = vim.g.have_nerd_font and {} or {

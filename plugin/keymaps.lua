@@ -49,3 +49,6 @@ vim.keymap.set('n', '<leader>w', '<cmd>w<CR>')
 vim.keymap.set('n', '<leader>q', '<cmd>q!<CR>')
 vim.keymap.set('n', '<leader>ca', '<cmd>%bd|e#|bd#<CR>', { silent = true, desc = "Close others" })
 vim.keymap.set('n', '<leader>c', '<cmd>bp | sp | bn | bd!<CR>')
+
+vim.keymap.set({ 'n', 'v' }, '<C-u>', '{')
+vim.keymap.set({ 'n', 'v' }, '<C-d>', '}')
