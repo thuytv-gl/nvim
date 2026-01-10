@@ -55,6 +55,6 @@ end
 -- Keymap
 vim.keymap.set("v", "-", function()
   M.align_selection_by_char("=")
-end, { desc = "Align selection by '='" })
+end, { desc = "Align selection by '-'" })
 
 return M
