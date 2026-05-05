@@ -68,7 +68,7 @@ local LSP = {
   },
 }
 
-return function (servers, formatters)
+return function(servers, formatters)
   AutoFormat.opts.formatters_by_ft = formatters
   local config = function()
     vim.api.nvim_create_autocmd("LspAttach", {

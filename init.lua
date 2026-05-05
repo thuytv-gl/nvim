@@ -52,6 +52,7 @@ local formatters = {
   -- markdown = { "markdownlint" },
   csharp = { "csharpier" },
   python = { "pylint" },
+  html = { "html-beautify" },
 }
 
 vim.g.mapleader = ","
